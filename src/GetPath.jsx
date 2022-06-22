@@ -1,4 +1,5 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
+import styled  from "styled-components";
 
 const obj = {
   user: {
@@ -16,16 +17,13 @@ const obj = {
 };
 
 function GetPath() {
-const [query, setQuery] = useState("")
-const [output, setOutput] = useState("");
+  const [query, setQuery] = useState("");
+  const [output, setOutput] = useState("");
 
-
-const handleSubmit =() =>{
+  const handleSubmit = () => {
     const path = getPath(obj, query);
     setOutput(path);
-}
-
-
+  };
 
   const getPath = (obj, query) => {
     if (query === obj.user.id) {
@@ -40,27 +38,64 @@ const handleSubmit =() =>{
       return `obj.user.location.state`;
     } else if (query === obj.user.location.address) {
       return `obj.user.location.address`;
-    }else {
-        return "Not found";
+    } else {
+      return "Not found";
     }
   };
 
-
-
-  return( 
+  return (
     <>
-    <div className="container">
-        <input type="text" value={query} onChange={(e)=>setQuery(e.target.value)}/>
-        <button onClick={handleSubmit}>Submit</button>
-        
-        <div>
-            datapath: {output}
-        </div>
-    </div>
+      <Wrapper>
+        <Input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <Button onClick={handleSubmit}>Submit</Button>
+      </Wrapper>
+      <DATAPATH>Querypath: '{output}'</DATAPATH>
     </>
-    
-  
   );
 }
+
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    background-color: #f5f5f5;
+
+`
+
+const Input = styled("input")`
+    margin: 10px 0;
+    padding: 10px;
+    width: 350px
+`
+
+const Button = styled("button")`
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #blue;
+    width: 100px;
+    height: 30px;
+    marging: 10px;
+    background-color:#2222e3;
+    color: white;
+`
+
+const DATAPATH = styled.div`
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #f5f5f5;
+    height: 50vh;
+    font-size: 3rem;
+
+`
 
 export default GetPath;
